@@ -1,0 +1,80 @@
+#include<iostream>
+#include<string.h>
+#include<ctype.h>
+using namespace std;
+
+
+string userInput;
+
+string array[10][15];
+string array2[10][15];
+
+int counter = 0;
+int counter2 = 1;
+
+
+void display(){
+    cout << "Display\n";
+    for (int i=0; i<10; i++){
+        for (int k=0; k<=14; k++){
+            cout << array[i][k];
+        }
+        cout << endl;
+    }
+}
+
+void display2(){
+    cout << "Display2\n";
+    for (int i=0; i<10; i++){
+        for (int k=0; k<=14; k++){
+            cout << array2[i][k] << ".";
+        }
+        cout << endl;
+    }
+}
+
+void cleanup(){ // This cleans up user input, removing the -> after the production 
+    cout << "Cleanup\n";
+    for (int i=0; i<=10; i++){
+        if (array[i][0] == ""){ // if index[0] is empty, then its empty set & end it
+            break;
+        }
+        array2[i][0] = array[i][0]; // set index[0] of clean array2 == index[0] of array
+        for (int k=3; k<=15; k++){
+            if (array[i][k] == ""){
+                // end of current set
+                break;
+            }
+            else{   // not at end of set, so add current index to new array2
+                array2[i][counter2] = array[i][k];  // set current index[counter2] to current array[i][k]
+                counter2++; // increase index position by 1
+            }
+        }
+        counter2 = 1;   // so that next time, the index will be set to 1 in next set
+    }
+}
+
+
+
+
+int main(){
+    cout << "Enter inputs. When done use $ to proceed:\n";
+    while (userInput != "$"){
+        cin >> userInput;
+        if (userInput == "$"){
+            break;
+        }
+        else{
+            for (int i=0; i<userInput.length(); i++){
+                array[counter][i] = userInput[i];
+            }
+            counter++;
+        }
+    }
+    display();
+    cout << endl;
+    cleanup();
+    display2();
+
+
+}
