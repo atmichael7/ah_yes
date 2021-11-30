@@ -57,7 +57,7 @@ void cleanup(){ // This cleans up user input, removing the -> after the producti
             }
             else{   // not at end of set, so add current index to new array2
                 if (array[i][k] == "|"){    // should give foresight into a set with a flag for |
-                    array3[i] = "1";    
+                    array3[i] = "1"; 
                 }
                 array2[i][counter2] = array[i][k];  // set current index[counter2] to current array[i][k]
                 counter2++; // increase index position by 1
@@ -65,6 +65,27 @@ void cleanup(){ // This cleans up user input, removing the -> after the producti
         }
         counter2 = 1;   // so that next time, the index will be set to 1 in next set
     }
+}
+
+void first(int set){
+    if (array[set][0] == ""){
+        // empty set, move on
+    }
+    else{
+        cout << "First(" << array[set][0] << ") "; // First(S) 
+    
+        // IF Check if index[1] is upper, IF so goto indicated production 
+
+        // ELSEIF Check if the set is flagged. IF so then look into it 
+            // For loop to check where the | is
+                // IF position after | is upper
+                // ELSE position aft | is lower
+
+        // ELSE its lower, end it TERMINAL
+    }
+    
+
+
 }
 
 
@@ -91,6 +112,8 @@ int main(){
     // could just create 1 display function & pass it the array to display but saving time 
     display3();
 
-
+    for (int i=10; i >= 0; i--){
+        first(i);
+    }
 }
 // END MAIN
