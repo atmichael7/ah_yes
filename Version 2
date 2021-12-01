@@ -16,35 +16,55 @@ int counter2 = 1;
 int counter3 = 0;
 
 void display(){
-    cout << "Display\n";
+    cout << "\nDisplaying phase 1: User input\n";
     for (int i=0; i<10; i++){
-        for (int k=0; k<=14; k++){
-            cout << array[i][k];
+        if (array[i][0] == NULL){
+            // do nothing
         }
-        cout << endl;
+        else{
+            for (int k=0; k<=14; k++){
+                // check if current index is empty
+                if (array[i][k] == NULL){
+                    // do nothing
+                }
+                else
+                    cout << array[i][k];
+            }
+            cout << endl;
+        }
     }
 }
 
 void display2(){
-    cout << "Display2\n";
+    cout << "Displaying phase 2: Cleaned user input\n";
     for (int i=0; i<10; i++){
-        for (int k=0; k<=14; k++){
-            cout << array2[i][k] << ".";
+        if (array2[i][0] == NULL){
+            // do nothing
         }
-        cout << endl;
+        else{
+            for (int k=0; k<=14; k++){
+                // check if current index is empty 
+                if (array2[i][k] == NULL){
+                    // do nothing
+                }
+                else
+                    cout << array2[i][k] << ".";
+            }
+            cout << endl;
+        }
     }
+    cout << endl << endl;
 }
 
 void display3(){
-    cout << "Display3\n";
+    cout << "Displaying phase 3: Flagged sets containing |\n";
     for (int k=0; k<=10; k++){
-          cout << array3[k] << "..";
+        cout << array3[k] << ".";
     }
-    cout << endl;
+    cout << endl << endl;
 }
 
 void cleanup(){ // This cleans up user input, removing the -> after the production 
-    cout << "Cleanup\n";
     for (int i=0; i<=10; i++){
         if (array[i][0] == NULL){ // if index[0] is empty, then its empty set & end it
             break;
