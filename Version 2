@@ -67,7 +67,7 @@ void cleanup(){ // This cleans up user input, removing the -> after the producti
     }
 }
 
-void first(int set){
+void first(int set, int at){
     if (array[set][0] == NULL){
         // empty set, move on
     }
@@ -75,13 +75,27 @@ void first(int set){
         cout << "First(" << array[set][0] << ")={"; // First(S) 
     
         // IF Check if index[1] is upper, IF so goto indicated production 
-        if (isupper(array2[set][1])){
+        if (isupper(array2[set][at])){
             // determine what letter / production it is & find the set 
             for (int aa=1; aa<=10; aa++){
                 if (array2[aa][0] == array2[set][1]){ // if index 0 == production 
-                    first(aa);
+                    first(aa, 1);
                 }
             }
+            // check if next char in current set is lower to end 
+            if (islower(array2[set][(at+1)])){
+                array4[set][counter3] = array2[set][(at+1)];
+                counter3++;
+            }
+            else if (isupper(array2[set][(at+1)])){
+                // look for the set that matches production 
+                for (int aaa=1; aaa<=10; aaa++){
+                    if (array2[aaa][0] == array2[set][(at+1)]){
+                        first(aaa, 1);
+                    }
+                }
+            }
+            // else 
         }
         // ELSEIF Check if the set is flagged. IF so then look into it 
         if (array3[set] == "1"){ // IF FLAGGED & LOWER (TERMINAL)
@@ -136,7 +150,7 @@ int main(){
     display3();
 
     for (int i=10; i >= 0; i--){
-        first(i);
+        first(i, 1); // look at set[i], at index 1
         counter3 = 0;
     }
 }
