@@ -1,18 +1,18 @@
-#include<iostream>
-#include<string.h>
-#include<ctype.h>
+#include <iostream>
+#include <stdio.h>
+#include <ctype.h>
+#include <string>
 using namespace std;
-
 
 string userInput;
 
-string array[10][15];
-string array2[10][15];
+char array[10][15];
+char array2[10][15];
 string array3[10]; // flags that denote if a set contains | 
+char array4[10][15]; // stores first elements 
 
 int counter = 0;
 int counter2 = 1;
-
 
 void display(){
     cout << "Display\n";
@@ -40,23 +40,22 @@ void display3(){
           cout << array3[k] << "..";
     }
     cout << endl;
-
 }
 
 void cleanup(){ // This cleans up user input, removing the -> after the production 
     cout << "Cleanup\n";
     for (int i=0; i<=10; i++){
-        if (array[i][0] == ""){ // if index[0] is empty, then its empty set & end it
+        if (array[i][0] == NULL){ // if index[0] is empty, then its empty set & end it
             break;
         }
         array2[i][0] = array[i][0]; // set index[0] of clean array2 == index[0] of array
         for (int k=3; k<=15; k++){
-            if (array[i][k] == ""){
+            if (array[i][k] == NULL){
                 // end of current set
                 break;
             }
             else{   // not at end of set, so add current index to new array2
-                if (array[i][k] == "|"){    // should give foresight into a set with a flag for |
+                if (array[i][k] == '|'){    // should give foresight into a set with a flag for |
                     array3[i] = "1"; 
                 }
                 array2[i][counter2] = array[i][k];  // set current index[counter2] to current array[i][k]
@@ -68,27 +67,43 @@ void cleanup(){ // This cleans up user input, removing the -> after the producti
 }
 
 void first(int set){
-    if (array[set][0] == ""){
+    if (array[set][0] == NULL){
         // empty set, move on
     }
     else{
-        cout << "First(" << array[set][0] << ") "; // First(S) 
+        cout << "First(" << array[set][0] << ")={"; // First(S) 
     
         // IF Check if index[1] is upper, IF so goto indicated production 
-
+        if (isupper(array2[set][1])){
+            // determine what letter / production it is & find the set 
+            for (int aa=1; aa<=10; aa++){
+                if (array2[aa][0] == array2[set][1]){ // if index 0 == production 
+                    first(aa);
+                }
+            }
+        }
         // ELSEIF Check if the set is flagged. IF so then look into it 
+        else if (array3[set] == "1"){ // IF FLAGGED & LOWER (TERMINAL)
+            for (int a=1; a<=15; a++){
+                if (array2[set][a] == '|'){ // check index after | 
+                    if (islower(array2[set][(a+1)])){   // LOWERCASE AFTER |
+                        array4[set][8] = array2[set][(a+1)];
+                        cout << array2[set][(a+1)];
+                    }
+                }
+            }
+        }
             // For loop to check where the | is
                 // IF position after | is upper
                 // ELSE position aft | is lower
 
         // ELSE its lower, end it TERMINAL
+        //else if (islower(array3[set])){
+
+        //}
+        cout << "}\n";
     }
-    
-
-
 }
-
-
 
 // BEGIN MAIN
 int main(){
