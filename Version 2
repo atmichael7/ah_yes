@@ -17,6 +17,12 @@ int counter2 = 1;
 int counter3 = 0;
 int counter5 = 0; // offset for closure
 
+
+char array6[10];
+int flag = 0;
+char hold;
+int counter6 = 0;
+
 // NEED TO MAKE IT SO IF ITS UPPER CHECK IF NEXT IS LOWER 
 
 void display(){
@@ -69,7 +75,7 @@ void display3(){
 }
 
 void display4(){
-    cout << "Displaying phase 4: Closure\n";
+    cout << "Displaying phase 4: Closure\n" << "I0:\n";
     for (int i=0; i<10; i++){
         if (array5[i][0] == NULL){
             // do nothing
@@ -86,6 +92,14 @@ void display4(){
             }
             cout << endl;
         }
+    }
+    cout << endl << endl;
+}
+
+void display5(){
+    cout << "Displaying phase 5: Unique chars in sets\n";
+    for (int k=0; k<=10; k++){
+        cout << array6[k] << "-";
     }
     cout << endl << endl;
 }
@@ -173,7 +187,6 @@ void first(int set, int at){
     }
 }
 
-
 // closure interacts with array2 (storing the clean inputs)
 void closure(){
     for (int i=0; i<=10; i++){
@@ -193,7 +206,7 @@ void closure(){
                     counter5++;                      // tidbit to fix it. Still dont know how it does that...
                 }
                 else{
-                    array5[i][(k+counter5)] = array2[i][k];
+                    array5[i][(k+counter5)] = array2[i][k]; 
                 }
             }
         }
@@ -201,9 +214,33 @@ void closure(){
 }
 
 
-
-
-
+void goto1(){
+    
+    for (int i=0; i<10; i++){           //goes through each set 
+        for (int k=2; k<=15; k++){      //goes through each index of a set
+            flag = 0;
+            for (int o=0; o<=10; o++){  //goes through each index in bag
+                if (array6[o] == array5[i][k]){
+                    flag = 0;
+                    break;
+                }
+                else{
+                    flag = 1;   //new char found, not in array6
+                    hold = array5[i][k];
+                }
+            }
+            if (flag){
+                if (array5[i][k] == '|' || array5[i][k] == '.'){
+                    // do nothing
+                }
+                else{
+                    array6[counter6] = array5[i][k];    //new char added to array6
+                    counter6++;
+                }
+            }
+        }
+    }
+}
 
 // BEGIN MAIN
 int main(){
@@ -234,5 +271,8 @@ int main(){
 
     closure();
     display4();
+
+    goto1();
+    display5();
 }
 // END MAIN
