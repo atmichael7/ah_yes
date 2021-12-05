@@ -256,7 +256,7 @@ void goto1(){
                             // do for loop to list out
                             for (int index=0; index <= 14; index++){
                                 if (array5[i][index] == '.'){
-                                    cout << array5[i][(index+1)] << ".";
+                                    cout << "->" << array5[i][(index+1)] << ".";
                                     for (int c=(index+2); c<=14; c++){
                                         if (array5[i][c] == NULL){
                                             // do nothing
@@ -267,13 +267,13 @@ void goto1(){
                                     break;
                                 }
                                 else{
-                                    cout << array5[i][(index+counter8)];
+                                    cout << array5[i][index];
                                 }
                             }
                         }
                         else{
                             for (int index=0; index<=14; index++){
-                                cout << array[i][index];
+                                //cout << array[i][index];              // ADDRESS THIS MAKES TOO MUCH OUTPUT 
                             }
                         }
                         cout << endl;
