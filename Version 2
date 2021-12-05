@@ -262,7 +262,12 @@ void goto1(){
                                             // do nothing
                                         }
                                         else 
-                                            cout << array5[i][c];
+                                            if (array5[i][c] == '|'){
+                                                break;
+                                            }
+                                            else{
+                                                cout << array5[i][c];
+                                            }
                                     }
                                     break;
                                 }
