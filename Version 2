@@ -75,13 +75,14 @@ void display4(){
             // do nothing
         }
         else{
-            for (int k=0; k<=14; k++){
+            cout << array5[i][0] << "->";
+            for (int k=1; k<=14; k++){
                 // check if current index is empty 
                 if (array5[i][k] == NULL){
                     // do nothing
                 }
                 else
-                    cout << array5[i][k] << " ";
+                    cout << array5[i][k];
             }
             cout << endl;
         }
