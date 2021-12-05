@@ -10,10 +10,12 @@ char array[10][15];
 char array2[10][15];
 string array3[10]; // flags that denote if a set contains | 
 char array4[10][15]; // stores first elements 
+char array5[10][15]; // closure array
 
 int counter = 0;
 int counter2 = 1;
 int counter3 = 0;
+int counter5 = 0; // offset for closure
 
 // NEED TO MAKE IT SO IF ITS UPPER CHECK IF NEXT IS LOWER 
 
@@ -50,7 +52,7 @@ void display2(){
                     // do nothing
                 }
                 else
-                    cout << array2[i][k] << ".";
+                    cout << array2[i][k] << " ";
             }
             cout << endl;
         }
@@ -61,7 +63,28 @@ void display2(){
 void display3(){
     cout << "Displaying phase 3: Flagged sets containing |\n";
     for (int k=0; k<=10; k++){
-        cout << array3[k] << ".";
+        cout << array3[k] << "-";
+    }
+    cout << endl << endl;
+}
+
+void display4(){
+    cout << "Displaying phase 4: Closure\n";
+    for (int i=0; i<10; i++){
+        if (array5[i][0] == NULL){
+            // do nothing
+        }
+        else{
+            for (int k=0; k<=14; k++){
+                // check if current index is empty 
+                if (array5[i][k] == NULL){
+                    // do nothing
+                }
+                else
+                    cout << array5[i][k] << " ";
+            }
+            cout << endl;
+        }
     }
     cout << endl << endl;
 }
@@ -149,6 +172,38 @@ void first(int set, int at){
     }
 }
 
+
+// closure interacts with array2 (storing the clean inputs)
+void closure(){
+    for (int i=0; i<=10; i++){
+        if (array2[i][0] == NULL){
+            // do nothing empty set
+        }
+        else{
+            //cout << array2[i][0] << "->"; // list index[0] of current set
+            array5[i][0] = array2[i][0];
+            array5[i][1] = '.';
+            counter5 = 1;
+            for (int k=1; k<=15; k++){
+                if (array2[i][k] == '|'){
+                    array5[i][k] = array2[i][(k-1)]; // weird fix for a problem I couldn't figure out the origin of 
+                    array5[i][(k+1)] = '|';          // logically it should work without this k-1 since it should 
+                    array5[i][(k+2)] = '.';          // store the input before | but it doesnt so I added in this 
+                    counter5++;                      // tidbit to fix it. Still dont know how it does that...
+                }
+                else{
+                    array5[i][(k+counter5)] = array2[i][k];
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
 // BEGIN MAIN
 int main(){
     cout << "Enter inputs. When done use $ to proceed:\n";
@@ -175,5 +230,8 @@ int main(){
         first(i, 1); // look at set[i], at index 1
         counter3 = 0;
     }
+
+    closure();
+    display4();
 }
 // END MAIN
