@@ -23,8 +23,6 @@ int flag = 0;
 char hold;
 int counter6 = 0;
 
-// NEED TO MAKE IT SO IF ITS UPPER CHECK IF NEXT IS LOWER 
-
 void display(){
     cout << "\nDisplaying phase 1: User input\n";
     for (int i=0; i<10; i++){
@@ -133,7 +131,6 @@ void first(int set, int at){
     }
     else{
         cout << "First(" << array[set][0] << ")={"; // First(S) 
-    
         // IF Check if index[1] is upper, IF so goto indicated production 
         if (isupper(array2[set][at])){
             // determine what letter / production it is & find the set 
@@ -215,7 +212,6 @@ void closure(){
 
 
 void goto1(){
-    
     for (int i=0; i<10; i++){           //goes through each set 
         for (int k=2; k<=15; k++){      //goes through each index of a set
             flag = 0;
@@ -238,6 +234,53 @@ void goto1(){
                     counter6++;
                 }
             }
+        }
+    }
+
+    // finished finding uniques 
+    int counter7 = 1;
+    int counter8 = 0;
+    char temp;
+    for (int o=0; o<=10; o++){  // unique char
+        if (array6[o] == NULL){
+            // do nothing
+        }
+        else{
+            temp = array6[o];
+            cout << "I" << counter7 << endl;
+            for (int i=0; i<10; i++){       // Set
+                for (int k=2; k<=15; k++){  // index in set
+                    if (temp == array5[i][k]){  // if match, then work on it
+                        counter8 = 0;
+                        if (k == 2){    // if its first move . back a position & print
+                            // do for loop to list out
+                            for (int index=0; index <= 14; index++){
+                                if (array5[i][index] == '.'){
+                                    cout << array5[i][(index+1)] << ".";
+                                    for (int c=(index+2); c<=14; c++){
+                                        if (array5[i][c] == NULL){
+                                            // do nothing
+                                        }
+                                        else 
+                                            cout << array5[i][c];
+                                    }
+                                    break;
+                                }
+                                else{
+                                    cout << array5[i][(index+counter8)];
+                                }
+                            }
+                        }
+                        else{
+                            for (int index=0; index<=14; index++){
+                                cout << array[i][index];
+                            }
+                        }
+                        cout << endl;
+                    }
+                }
+            }
+            counter7++;
         }
     }
 }
